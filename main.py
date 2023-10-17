@@ -65,7 +65,7 @@ fig.write_html('Plots/Edad de Encuestados por Año.html')
 
 fig = px.histogram(db, x='year', title='Encuestados por Año')
 fig.update_layout(yaxis_title='Número de Personas', xaxis_title='Año')
-fig.write_html('Encuestados por Año')
+fig.write_html('Plots/Encuestados por Año.html')
 
 fig = px.histogram(db, x='p3_5', color='year', barmode='group', title='Lectura por Año', histnorm='percent')
 fig.update_layout(yaxis_title='% de Personas', xaxis_title='Libros Leídos')
