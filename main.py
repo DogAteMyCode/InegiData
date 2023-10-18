@@ -42,7 +42,10 @@ if not os.path.exists('Data/data.csv') and os.path.exists('Data/sav/'):
 
 db = pd.read_csv('Data/data.csv')
 
+p7 = {0: 'No contesto', 1: 'Descarga Gratuita', 2: 'Regalado', 3: 'Comprado'}
+
 db['sexo'] = db['sexo'].apply(lambda x: 'Hombre' if x == 1 else 'Mujer')
+db['p7'] = db['p7'].apply(lambda x: p7[int(x)])
 
 if not os.path.exists('Plots/'):
     os.mkdir('Plots/')
@@ -114,3 +117,8 @@ fig = px.histogram(db, y='p3_5', x='edad', barmode='overlay', title='Lectura por
 fig.update_layout(yaxis_title='Promedio de Libros Leídos', xaxis_title='Edad')
 
 fig.write_html('Plots/Lectura por Edad.html')
+
+fig = px.histogram(db, x='p7', barmode='group', title="Adquisición de Libros por Método")
+fig.update_layout(yaxis_title='Número de Personas', xaxis_title='Método')
+fig.write_html('Plots/Adquisición de Libros por Método.html')
+
