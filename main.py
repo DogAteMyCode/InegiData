@@ -1,4 +1,5 @@
 from plotly import express as px
+from scipy import stats
 import numpy as np
 import pandas as pd
 import pyreadstat
@@ -122,3 +123,13 @@ fig = px.histogram(db, x='p7', barmode='group', title="Adquisición de Libros po
 fig.update_layout(yaxis_title='Número de Personas', xaxis_title='Método')
 fig.write_html('Plots/Adquisición de Libros por Método.html')
 
+fig = px.histogram(db, x='p3_5', color='p7', barmode='group', title="Libros leídos por Método")
+fig.update_layout(yaxis_title='Número de Personas', xaxis_title='Número de libros')
+fig.write_html('Plots/Libros leídos por Método.html')
+
+gdb = db.groupby('year').apply(lambda x: x)
+first_year = gdb['p3_5'][2015]
+for year in range(2016, 2024):
+    n_year = gdb['p3_5'][year]
+    t_test = stats.ttest_ind(first_year, n_year)
+    print(2015, year, t_test)
